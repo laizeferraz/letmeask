@@ -2,6 +2,8 @@ import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
 import googleImg from "../assets/images/google-icon.svg";
 
+import { Button } from "../components/Button";
+
 import "../styles/auth.scss";
 export const Home = () => {
   return (
@@ -12,16 +14,17 @@ export const Home = () => {
         <p>Answers room questions in real time.</p>
       </aside>
       <main>
-        <div>
+        <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
-          <button>
+          <button className="create-room">
             <img src={googleImg} alt="Google logo" />
             Create your room with Google
           </button>
-          <div>or get inside of a room</div>
+          <div className="separator">or enter a room</div>
           <form>
             <input type="text" placeholder="type the room number" />
-            <button type="submit">Get inside</button>
+
+            <Button>Get inside</Button>
           </form>
         </div>
       </main>
