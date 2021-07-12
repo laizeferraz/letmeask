@@ -1,11 +1,11 @@
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
-import googleImg from "../assets/images/google-icon.svg";
 
 import { Button } from "../components/Button";
 
 import "../styles/auth.scss";
-export const Home = () => {
+
+export const NewRoom = () => {
   return (
     <div id="page-auth">
       <aside>
@@ -16,16 +16,15 @@ export const Home = () => {
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
-          <button className="create-room">
-            <img src={googleImg} alt="Google logo" />
-            Create your room with Google
-          </button>
-          <div className="separator">or enter a room</div>
+          <h2>Create a new room</h2>
           <form>
-            <input type="text" placeholder="Type the room code" />
+            <input type="text" placeholder="Room name" />
 
-            <Button>Get inside</Button>
+            <Button>Creat room</Button>
           </form>
+          <p>
+            <a href="index.html">Click here</a> to enter in an existent room.
+          </p>
         </div>
       </main>
     </div>
