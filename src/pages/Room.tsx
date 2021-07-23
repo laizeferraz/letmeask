@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 import logoImg from "../assets/images/logo.svg";
@@ -12,12 +12,62 @@ type RoomParams = {
   id: string;
 };
 
+type FirebaseQuestions = Record<
+  string,
+  {
+    author: {
+      name: string;
+      avatar: string;
+    };
+    content: string;
+    isHighlighted: boolean;
+    isAnswered: boolean;
+  }
+>;
+
+type Questions = {
+  id: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  content: string;
+  isHighlighted: boolean;
+  isAnswered: boolean;
+};
+
 export const Room = () => {
   const { user } = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState("");
+  const [questions, setQuestions] = useState<Questions[]>([]);
+  const [title, setTitle] = useState("");
 
   const roomId = params.id;
+
+  useEffect(() => {
+    const roomRef = database.ref(`rooms/${roomId}`);
+
+    roomRef.on("value", (room) => {
+      // console.log(room.val());
+      const databaseRoom = room.val();
+      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+      const parsedQuestions = Object.entries(firebaseQuestions).map(
+        ([key, value]) => {
+          return {
+            id: key,
+            content: value.content,
+            author: value.author,
+            isHighlighted: value.isHighlighted,
+            isAnswered: value.isAnswered,
+          };
+        }
+      );
+      // console.log(parsedQuestions);
+      setTitle(databaseRoom.title);
+      setQuestions(parsedQuestions);
+    });
+  }, [roomId]);
 
   async function handleSendQuestion(e: FormEvent) {
     e.preventDefault();
@@ -55,8 +105,8 @@ export const Room = () => {
 
       <main>
         <div className="room-title">
-          <h1>React Room</h1>
-          <span>4 Questions</span>
+          <h1>{title}</h1>
+          {questions.length > 0 && <span>{questions.length} Question(s)</span>}
         </div>
 
         <form onSubmit={handleSendQuestion}>
@@ -82,6 +132,7 @@ export const Room = () => {
             </Button>
           </div>
         </form>
+        {JSON.stringify(questions)}
       </main>
     </div>
   );
