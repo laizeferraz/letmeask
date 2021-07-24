@@ -43,7 +43,7 @@ export const Home = () => {
     <div id="page-auth">
       <aside>
         <img src={illustrationImg} alt="Questions and Answers illustration." />
-        <strong>Create live Q&amp;A rooms</strong>
+        <strong>Create liveeeee Q&amp;A rooms</strong>
         <p>Answers room questions in real time.</p>
       </aside>
       <main>
