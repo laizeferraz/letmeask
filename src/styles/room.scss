@@ -13,6 +13,15 @@
       > img {
         min-height: 2.8em;
       }
+
+      > div {
+        display: flex;
+        gap: 1em;
+
+        button {
+          height: 2.5em;
+        }
+      }
     }
   }
 
