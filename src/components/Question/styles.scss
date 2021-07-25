@@ -1,0 +1,38 @@
+.question {
+  background: #fefefe;
+  border-radius: 0.5em;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  padding: 1.75em;
+
+  & + .question {
+    margin-top: 0.5em;
+  }
+
+  p {
+    color: #29292e;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.75em;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 2em;
+        height: 2em;
+        border-radius: 50%;
+      }
+
+      span {
+        margin-left: 0.5em;
+        color: #737380;
+        font-size: 0.8em;
+      }
+    }
+  }
+}
