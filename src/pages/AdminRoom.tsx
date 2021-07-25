@@ -1,17 +1,18 @@
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import { Button } from "../components/Button";
 import { Question } from "../components/Question";
 import { RoomCode } from "../components/RoomCode";
+import { database } from "../services/firebase";
+
 // import { useAuth } from "../hooks/useAuth";
 import { useRoom } from "../hooks/useRoom";
-// import { database } from "../services/firebase";
 
 import logoImg from "../assets/images/logo.svg";
 import deleteImg from "../assets/images/delete.svg";
 
 import "../styles/room.scss";
-import { database } from "../services/firebase";
 
 type RoomParams = {
   id: string;
@@ -19,10 +20,19 @@ type RoomParams = {
 
 export const AdminRoom = () => {
   // const { user } = useAuth();
+  const history = useHistory();
   const params = useParams<RoomParams>();
 
   const roomId = params.id;
   const { title, questions } = useRoom(roomId);
+
+  async function handleCloseRoom() {
+    database.ref(`rooms/${roomId}`).update({
+      closedAt: new Date(),
+    });
+
+    history.push("/");
+  }
 
   async function handleDeleteQuestion(questionId: string) {
     if (window.confirm("Are you sure you want to delete this question?")) {
@@ -37,7 +47,9 @@ export const AdminRoom = () => {
           <img src={logoImg} alt="Letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined>Close Room</Button>
+            <Button isOutlined onClick={handleCloseRoom}>
+              Close Room
+            </Button>
           </div>
         </div>
       </header>
