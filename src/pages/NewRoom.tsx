@@ -24,10 +24,10 @@ export const NewRoom = () => {
 
     const roomRef = database.ref("rooms");
     const firebaseRoom = await roomRef.push({
-      tittle: newRoom,
+      title: newRoom,
       authorId: user?.id,
     });
-    history.push(`/rooms/${firebaseRoom.key}`);
+    history.push(`/admin/rooms/${firebaseRoom.key}`);
   }
 
   return (
